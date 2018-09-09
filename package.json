@@ -1,0 +1,16 @@
+{
+  "name": "yadicer",
+  "version": "0.0.1",
+  "description": "Yet Another Dice Roller",
+  "main": "index.js",
+  "author": "Slava Bezgachev <bezgachev@gmail.com> (https://github.com/slavabez)",
+  "license": "MIT",
+  "keywords": [
+    "dice",
+    "roll",
+    "die"
+  ],
+  "engines": {
+    "node": ">=8"
+  }
+}
