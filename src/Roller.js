@@ -2,7 +2,7 @@
  * Returns an object that represents the dice roll
  * @param input - Expects a standard roll notation XdY, where X is number of dice and y is sides per die
  */
-export default function roll(input) {
+module.exports = function roll(input) {
   return new Promise((resolve, reject) => {
     // Make sure it's valid notation
     const valid = input.match(/\d+[d]\d+/);
