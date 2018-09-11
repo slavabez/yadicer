@@ -5,8 +5,8 @@ node_js:
 install:
   - npm install
 script:
+  - npm run build
   - npm test
-  - npm build
 cache: yarn
 deploy:
   provider: npm
