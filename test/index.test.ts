@@ -1,5 +1,5 @@
 import "jest";
-import roll from "./index";
+import * as roll from "../dist/index";
 
 describe("The main test suite", () => {
   describe("The good, properly formatted cases", () => {
