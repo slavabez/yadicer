@@ -1,8 +1,7 @@
 language: node_js
 node_js:
   - node
-  - 8
-  - 6
+  - lts
 install:
   - npm install
 script:
