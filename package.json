@@ -2,7 +2,7 @@
   "name": "yadicer",
   "version": "0.0.1",
   "description": "Yet Another Dice Roller",
-  "main": "index.js",
+  "main": "dist/index.js",
   "author": "Slava Bezgachev <bezgachev@gmail.com> (https://github.com/slavabez)",
   "license": "MIT",
   "keywords": [
@@ -13,12 +13,18 @@
   "engines": {
     "node": ">=8"
   },
-  "types": "./main.d.ts",
+  "types": "./dist/index.d.ts",
   "devDependencies": {
     "jest": "^23.6.0",
     "typescript": "^3.0.3"
   },
   "scripts": {
     "build": "tsc"
+  },
+  "homepage": "https://github.com/slavabez/yadicer",
+  "bugs": "https://github.com/slavabez/yadicer/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slavabez/yadicer"
   }
 }
