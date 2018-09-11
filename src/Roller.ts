@@ -1,8 +1,19 @@
+interface rollResults {
+  total?: number;
+  rolls?: singleRoll[];
+}
+
+interface singleRoll {
+  order?: number;
+  sides?: number;
+  result?: number;
+}
+
 /**
  * Returns an object that represents the dice roll
  * @param input - Expects a standard roll notation XdY, where X is number of dice and y is sides per die
  */
-module.exports = function roll(input) {
+export function roll(input: string): Promise<rollResults> {
   return new Promise((resolve, reject) => {
     // Make sure it's valid notation
     const valid = input.match(/\d+[d]\d+/);
@@ -18,18 +29,21 @@ module.exports = function roll(input) {
     if (isNaN(sides) || sides === 0) reject("Invalid number of sides");
 
     // Results will be an object with total count and an array of individual rolls
-    const results = {};
-    results.rolls = [];
-    results.total = 0;
+    const results: rollResults = {
+      total: 0,
+      rolls: []
+    };
 
-    for (let i = 0; i < rolls; i++){
-      results.rolls.push({
+    for (let i = 0; i < rolls; i++) {
+      const value = Math.ceil(Math.random() * sides);
+      results.rolls!.push({
         order: i,
         sides: sides,
-        result: Math.ceil(Math.random() * sides)
+        result: value
       });
+
       // Keep a total count
-      results.total += results.roll[i].result
+      results.total! += value;
     }
 
     resolve(results);
