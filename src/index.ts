@@ -13,7 +13,7 @@ interface singleRoll {
  * Returns an object that represents the dice roll
  * @param input - Expects a standard roll notation XdY, where X is number of dice and y is sides per die
  */
-export = function roll(input: string): Promise<rollResults> {
+export default function roll(input: string): Promise<rollResults> {
   return new Promise((resolve, reject) => {
     // Make sure it's valid notation
     const valid = input.match(/\d+[d]\d+/);
@@ -37,7 +37,7 @@ export = function roll(input: string): Promise<rollResults> {
     for (let i = 0; i < rolls; i++) {
       const value = Math.ceil(Math.random() * sides);
       results.rolls!.push({
-        order: i,
+        order: i + 1,
         sides: sides,
         result: value
       });

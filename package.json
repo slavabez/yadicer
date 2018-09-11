@@ -15,16 +15,32 @@
   },
   "types": "./dist/index.d.ts",
   "devDependencies": {
+    "@types/jest": "^23.3.2",
     "jest": "^23.6.0",
+    "ts-jest": "^23.1.4",
     "typescript": "^3.0.3"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": "jest"
   },
   "homepage": "https://github.com/slavabez/yadicer",
   "bugs": "https://github.com/slavabez/yadicer/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/slavabez/yadicer"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "testMatch": [
+      "**/?(*.)test.ts"
+    ],
+    "testEnvironment": "node"
   }
 }
