@@ -1,10 +1,16 @@
 language: node_js
 node_js:
   - node
-  - 10
   - 8
   - 6
 install:
   - npm install
 script:
   - npm test
+cache: yarn
+deploy:
+  provider: npm
+  email: "bezgachev@gmail.com"
+  api_key: $NPM_TOKEN
+  on:
+    branch: production
