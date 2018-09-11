@@ -1,11 +1,12 @@
 language: node_js
 node_js:
   - node
-  - lts
+  - lts/*
 install:
   - npm install
 script:
   - npm test
+  - npm build
 cache: yarn
 deploy:
   provider: npm
