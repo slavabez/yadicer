@@ -1,8 +1,10 @@
 # Yet Another DICE Roller
 
+[![Build Status](https://travis-ci.org/slavabez/yadicer.svg?branch=master)](https://travis-ci.org/slavabez/yadicer)
+
 Work in progress, use with caution. I wouldn't use this in production.
 
-A simple dice roller, just for the sake of practicing creating and publishing NPM modules.
+A simple dice roller NPM module, just for the sake of practicing creating and publishing NPM modules.
 
 Made with TypeScript, and provides typescript support out of the box.
 
