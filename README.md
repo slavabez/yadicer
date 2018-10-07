@@ -14,22 +14,44 @@ Made with TypeScript, and provides typescript support out of the box.
 
 ## How to use in Node
 
-Depending on the module target specified during compilation, the compiler will generate appropriate code for Node.js (CommonJS), require.js (AMD), UMD, SystemJS, or ECMAScript 2015 native modules (ES6) module-loading systems. For more information on what the define, require and register calls in the generated code do, consult the documentation for each module loader.
+* Using CommonJS (require) with `.then`
 
-* Using CommonJS (require)
+```js
+const roll = require("yadicer");
 
-`var mod_1 = require("./mod");
-exports.t = mod_1.something + 1`
+roll("2d20").then((result) => {
+  console.log(`We rolled a total of ${result.total}`);
+});
+```
+* Same, but with async/await
+
+```js
+const roll = require("yadicer");
+
+// In an async function
+const result = await roll("2d20");
+console.log(`We rolled a total of ${result.total}`);
+```
 
 * Using ES6 imports (import)
 
-`import { something } from "./mod";
-export var t = something + 1;`
+```js
+import roll from "yadicer";
+
+// In an async function
+const result = await roll("2d20");
+console.log(`We rolled a total of ${result.total}`);
+```
 
 * Using Typescript
 
-`import m = require("mod");
-export let t = m.something + 1;`
+```typescript
+import * as roll from "yadicer";
+
+// In an async function
+const result = await roll("2d20");
+console.log(`We rolled a total of ${result.total}`);
+```
 
 ## Notes
-It doesn't currently work in the browser out of the box
+It doesn't currently work in the browser out of the box, but should do with a bundler like Webpack or Parcel
