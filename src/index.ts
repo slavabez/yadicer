@@ -9,11 +9,19 @@ interface singleRoll {
   result?: number;
 }
 
+interface config {
+  useRandomOrg?: boolean;
+}
+
 /**
  * Returns an object that represents the dice roll
  * @param input - Expects a standard roll notation XdY, where X is number of dice and y is sides per die
+ * @param options - Expects a config. Can be used to specify various options, refer to docs
  */
-export = function roll(input: string): Promise<rollResults> {
+export = function roll(
+  input: string,
+  options: config = { useRandomOrg: false }
+): Promise<rollResults> {
   return new Promise((resolve, reject) => {
     // Make sure it's valid notation
     const valid = input.match(/\d+[d]\d+/);
@@ -48,4 +56,4 @@ export = function roll(input: string): Promise<rollResults> {
 
     resolve(results);
   });
-}
+};
