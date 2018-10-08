@@ -60,10 +60,11 @@ It doesn't currently work in the browser out of the box, but should do with a bu
 
 ## Enabling "true" random rolls
 
-By default, yadicer uses Javascript's native `Math.random()` function to determine the rolls. Like any computer-generated random value, it's not really random but pseudo-random. With yadicer 2.0 we are introducing much more random rolls by using Random.org API. Random.org uses environmental noise for generating the values, and as such is a lot more random. 
+By default, yadicer uses Javascript's native `Math.random()` function to determine the rolls. Like any computer-generated random value, it's not really random but pseudo-random. With yadicer 0.2 we are introducing much more random rolls by using Random.org API. Random.org uses environmental noise for generating the values, and as such is a lot more random. 
 
 ### Using Random.org-generated rolls
 ```js
+// In an async function
 const trueRandomRoll = await roll("5d20", { useRandomOrg: true });
 ```
 
