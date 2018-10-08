@@ -1,6 +1,6 @@
 {
   "name": "yadicer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Yet Another Dice Roller",
   "main": "dist/index.js",
   "author": "Slava Bezgachev <bezgachev@gmail.com> (https://github.com/slavabez)",
@@ -11,18 +11,22 @@
     "die"
   ],
   "engines": {
-    "node": ">=8"
+    "node": ">=6"
   },
   "types": "./dist/index.d.ts",
   "devDependencies": {
     "@types/jest": "^23.3.2",
     "jest": "^23.6.0",
+    "nodemon": "^1.18.4",
     "ts-jest": "^23.1.4",
+    "ts-node": "^7.0.1",
     "typescript": "^3.0.3"
   },
   "scripts": {
     "build": "tsc",
-    "test": "jest"
+    "dev": "nodemon",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "homepage": "https://github.com/slavabez/yadicer",
   "bugs": "https://github.com/slavabez/yadicer/issues",
@@ -42,5 +46,8 @@
       "**/?(*.)test.ts"
     ],
     "testEnvironment": "node"
+  },
+  "dependencies": {
+    "axios": "^0.18.0"
   }
 }
