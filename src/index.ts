@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import axios from 'axios';
 
 interface rollResults {
   total?: number;
@@ -22,7 +22,7 @@ interface config {
  */
 export = function roll(
   input: string,
-  options: config = { useRandomOrg: false }
+  options: config = {useRandomOrg: false}
 ): Promise<rollResults> {
   return new Promise(async (resolve, reject) => {
     // Make sure it's valid notation
@@ -44,27 +44,30 @@ export = function roll(
   });
 };
 
-async function getRollResults(rolls: number, sides: number, useRandomOrg?: boolean): Promise<rollResults> {
-  // Results will be an object with total count and an array of individual rolls
-  const results: rollResults = {
-    total: 0,
-    rolls: []
-  };
+function getRollResults(rolls: number, sides: number, useRandomOrg?: boolean): Promise<rollResults> {
+  return new Promise(async (resolve, reject) => {
 
-  if (useRandomOrg) {
-    const randomQueryString = `https://www.random.org/integers/?num=${rolls}&min=1&max=${sides}&col=1&base=10&format=plain&rnd=new`;
 
-    return Axios.get(randomQueryString)
-      .then((resp) => {
-        let nums;
-        if (typeof resp.data === 'number') {
-          nums = [resp.data];
+    // Results will be an object with total count and an array of individual rolls
+    const results: rollResults = {
+      total: 0,
+      rolls: []
+    };
+
+    if (useRandomOrg) {
+      const randomQueryString = `https://www.random.org/integers/?num=${rolls}&min=1&max=${sides}&col=1&base=10&format=plain&rnd=new`;
+
+      try {
+        const response = await axios.get(randomQueryString);
+        let rolls;
+        if (typeof response.data === 'number') {
+          rolls = [response.data];
         } else {
-          nums = resp.data.split("\n").filter(
+          rolls = response.data.split("\n").filter(
             (a: string) => a.length > 0
           )
         }
-        nums.map((n: string, index: number) => {
+        rolls.map((n: string, index: number) => {
           let singleRoll = parseInt(n);
           results.rolls!.push({
             order: index + 1,
@@ -74,20 +77,23 @@ async function getRollResults(rolls: number, sides: number, useRandomOrg?: boole
 
           results.total! += singleRoll;
         });
-        return results;
-      });
-  } else {
-    for (let i = 0; i < rolls; i++) {
-      const value = Math.ceil(Math.random() * sides);
-      results.rolls!.push({
-        order: i + 1,
-        sides: sides,
-        result: value
-      });
+        resolve(results);
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      for (let i = 0; i < rolls; i++) {
+        const value = Math.ceil(Math.random() * sides);
+        results.rolls!.push({
+          order: i + 1,
+          sides: sides,
+          result: value
+        });
 
-      // Keep a total count
-      results.total! += value;
+        // Keep a total count
+        results.total! += value;
+      }
+      resolve(results);
     }
-    return results;
-  }
+  });
 }
