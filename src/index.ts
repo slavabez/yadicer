@@ -47,7 +47,6 @@ export = function roll(
 function getRollResults(rolls: number, sides: number, useRandomOrg?: boolean): Promise<rollResults> {
   return new Promise(async (resolve, reject) => {
 
-
     // Results will be an object with total count and an array of individual rolls
     const results: rollResults = {
       total: 0,
@@ -78,8 +77,8 @@ function getRollResults(rolls: number, sides: number, useRandomOrg?: boolean): P
           results.total! += singleRoll;
         });
         resolve(results);
-      } catch (e) {
-        console.error(e);
+      } catch (error) {
+        reject(new Error("Error with the request to Random.org, check your internet connection and try again."));
       }
     } else {
       for (let i = 0; i < rolls; i++) {
