@@ -1,3 +1,5 @@
+import Axios from 'axios';
+
 interface rollResults {
   total?: number;
   rolls?: singleRoll[];
@@ -22,7 +24,7 @@ export = function roll(
   input: string,
   options: config = { useRandomOrg: false }
 ): Promise<rollResults> {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     // Make sure it's valid notation
     const valid = input.match(/\d+[d]\d+/);
     if (!valid)
@@ -36,12 +38,45 @@ export = function roll(
     const sides = parseInt(elements[1]);
     if (isNaN(sides) || sides === 0) reject("Invalid number of sides");
 
-    // Results will be an object with total count and an array of individual rolls
-    const results: rollResults = {
-      total: 0,
-      rolls: []
-    };
+    const results = await getRollResults(rolls, sides, options.useRandomOrg);
 
+    resolve(results);
+  });
+};
+
+async function getRollResults(rolls: number, sides: number, useRandomOrg?: boolean): Promise<rollResults> {
+  // Results will be an object with total count and an array of individual rolls
+  const results: rollResults = {
+    total: 0,
+    rolls: []
+  };
+
+  if (useRandomOrg) {
+    const randomQueryString = `https://www.random.org/integers/?num=${rolls}&min=1&max=${sides}&col=1&base=10&format=plain&rnd=new`;
+
+    return Axios.get(randomQueryString)
+      .then((resp) => {
+        let nums;
+        if (typeof resp.data === 'number') {
+          nums = [resp.data];
+        } else {
+          nums = resp.data.split("\n").filter(
+            (a: string) => a.length > 0
+          )
+        }
+        nums.map((n: string, index: number) => {
+          let singleRoll = parseInt(n);
+          results.rolls!.push({
+            order: index + 1,
+            sides: sides,
+            result: singleRoll
+          });
+
+          results.total! += singleRoll;
+        });
+        return results;
+      });
+  } else {
     for (let i = 0; i < rolls; i++) {
       const value = Math.ceil(Math.random() * sides);
       results.rolls!.push({
@@ -53,7 +88,6 @@ export = function roll(
       // Keep a total count
       results.total! += value;
     }
-
-    resolve(results);
-  });
-};
+    return results;
+  }
+}
